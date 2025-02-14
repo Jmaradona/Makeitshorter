@@ -54,8 +54,7 @@ function estimateTokens(text) {
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
-  'https://meek-bavarois-e023e1.netlify.app', // Your Netlify URL
-  process.env.FRONTEND_URL // Any additional frontend URL
+  process.env.FRONTEND_URL
 ].filter(Boolean);
 
 app.use(cors({
@@ -73,6 +72,11 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
+// Basic route to check if server is running
+app.get('/', (req, res) => {
+  res.json({ status: 'Server is running' });
+});
 
 app.get('/api/health', (req, res) => {
   const apiKey = process.env.OPENAI_API_KEY;
