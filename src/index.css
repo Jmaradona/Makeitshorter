@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-primary: 250 250 250;
+    --bg-secondary: 244 244 245;
+    --text-primary: 24 24 27;
+    --text-secondary: 82 82 91;
+  }
+
+  .dark {
+    --bg-primary: 24 24 27;
+    --bg-secondary: 39 39 42;
+    --text-primary: 244 244 245;
+    --text-secondary: 212 212 216;
+  }
+
+  body {
+    @apply antialiased bg-[rgb(var(--bg-primary))] text-[rgb(var(--text-primary))] transition-colors;
+  }
+}
+
+@layer components {
+  .input-area {
+    @apply relative flex-1 flex flex-col;
+  }
+
+  .input-area::before {
+    @apply absolute inset-0 bg-gradient-to-b from-gray-50/50 to-white/30 dark:from-gray-800/50 dark:to-gray-900/30 pointer-events-none rounded-lg transition-colors;
+  }
+
+  .tag-button {
+    @apply px-3 py-1.5 rounded-lg text-sm transition-all duration-200 hover:shadow-sm;
+  }
+
+  .tag-button-selected {
+    @apply bg-gray-900 dark:bg-gray-100 text-gray-100 dark:text-gray-900 shadow-md scale-[1.02];
+  }
+
+  .tag-button-unselected {
+    @apply bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-[1.02];
+  }
+}
+
+/* Custom scrollbar styles */
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-600 rounded-full hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors;
+  }
+}
