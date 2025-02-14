@@ -10,14 +10,22 @@ interface EnhanceEmailPayload {
 
 export async function enhanceEmail(payload: EnhanceEmailPayload): Promise<AIResponse> {
   try {
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+    // Get the backend URL from environment variables
+    const apiUrl = import.meta.env.VITE_BACKEND_URL;
     
+    if (!apiUrl) {
+      return {
+        enhancedContent: '',
+        error: 'Backend URL is not configured. Please check your environment variables.'
+      };
+    }
+
     // First check if the server is running
     const healthCheck = await fetch(`${apiUrl}/api/health`).catch(() => null);
     if (!healthCheck?.ok) {
       return {
         enhancedContent: '',
-        error: 'Server is not running. Please ensure the backend server is started.'
+        error: 'Cannot connect to the server. Please try again later.'
       };
     }
 
